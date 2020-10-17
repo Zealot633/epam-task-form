@@ -1,12 +1,26 @@
 const page = document.querySelector(".page");
 const pageDefault = page.innerHTML;
-const form = document.forms.my;
-const mail = form.elements.email;
-const name = form.elements.username;
-const password = form.elements.password;
+let form = document.forms.my;
+let mail = form.elements.email;
+let name = form.elements.username;
+let  password = form.elements.password;
 const regExpName = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
 const regExpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
 const regExpMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+focus()
+change()
+submit()
+
+function clear() {
+    form = document.forms.my;
+    mail = form.elements.email;
+    name = form.elements.username;
+    password = form.elements.password;
+    focus()
+    change()
+    submit()
+}
 
 function createHint(inputName) {
     let hint = document.createElement("div");
@@ -33,17 +47,20 @@ function createHint(inputName) {
     return hint;
 }
 
-Array.from(form.elements).forEach((e) => {
-    e.addEventListener("focus", () => {
-        if (e.classList.contains("wrongInput")) {
-            e.classList.remove("wrongInput");
-            e.placeholder = "";
-            document.querySelector(`#${e.name}`).remove();
-        } else if (e.classList.contains("correctInput")) {
-            e.classList.remove("correctInput");
-        }
+function focus() {
+    Array.from(form.elements).forEach((e) => {
+        e.addEventListener("focus", () => {
+            if (e.classList.contains("wrongInput")) {
+                e.classList.remove("wrongInput");
+                e.placeholder = "";
+                document.querySelector(`#${e.name}`).remove();
+            } else if (e.classList.contains("correctInput")) {
+                e.classList.remove("correctInput");
+            }
+        });
     });
-});
+}
+
 
 function checkInput(input) {
     const wrongInput = (input) => {
@@ -74,29 +91,35 @@ function checkInput(input) {
     }
 }
 
-Array.from(form.elements).forEach((e) => {
-    e.addEventListener("change", function (event) {
-        checkInput(event.target);
-    });
-});
-
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    let hints = document.querySelectorAll(".hint");
-    hints.forEach((e) => e.remove());
-    Array.from(form.elements).forEach((e) => checkInput(e));
-    if (mail.value && name.value && password.value) {
-        let userInfo = {
-            name: name.value,
-            email: mail.value,
-            password: password.value,
-        };
-        page.innerHTML =
-            '<div class="success"><div class="button">Success!</div></div>';
-        document.querySelector(".success").addEventListener("click", () => {
-            page.innerHTML = pageDefault;
+function change() {
+    Array.from(form.elements).forEach((e) => {
+        e.addEventListener("change", function (event) {
+            checkInput(event.target);
         });
-        console.log(JSON.stringify(userInfo));
-        return JSON.stringify(userInfo);
-    }
-});
+    });
+}
+
+function submit() {
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        let hints = document.querySelectorAll(".hint");
+        hints.forEach((e) => e.remove());
+        Array.from(form.elements).forEach((e) => checkInput(e));
+        if (mail.value && name.value && password.value) {
+            let userInfo = {
+                name: name.value,
+                email: mail.value,
+                password: password.value,
+            };
+            page.innerHTML =
+                '<div class="success"><div class="button">Success!</div></div>';
+            document.querySelector(".success").addEventListener("click", () => {
+                page.innerHTML = pageDefault;
+                clear()
+            });
+            console.log(JSON.stringify(userInfo));
+            return JSON.stringify(userInfo);
+        }
+    });
+}
+
