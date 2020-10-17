@@ -12,6 +12,8 @@
 
 
 body {
+    max-width: 1920px;
+    margin: auto;
     font-family: 'Poppins';
     display: flex;
     align-items: center;
@@ -34,12 +36,13 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 50%;
+    width: 50vw;
+    height: 70vh;
     background: #cae1eb25;
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
     padding: 10px;
+
 }
 
 form {
@@ -66,19 +69,20 @@ input {
     border-radius: 10px;
     position: relative;
     padding: 0 0 0 3.82848392037%;
-    font-size: 18px;
+    font-size: 1em;
     background: AliceBlue;
 
 }
 
 input::placeholder {
-    color: red;
+    color: #fcdcdc;
+    font-size: 1em;
 }
 
 
 button {
-    width: 30%;
-    height: 15%;
+    width: 20%;
+    height: 10%;
     cursor: pointer;
     box-shadow:inset 0px 1px 0px 0px #7a8eb9;
     background:linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
@@ -157,5 +161,58 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 
+}
+
+.hint {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    height:50px;
+    color: #fafafa;
+    background: rgba(102, 120, 127, 0.8);
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -61%;
+    z-index: 2312312321;
+    animation: hintAppear 0.7s linear;
+
+}
+
+.hint p {
+    text-align: center;
+    font-family: Georgia,sans-serif;
+    font-size: 1.2em;
+}
+
+.wrongInput {
+    background: #e05a5a;
+}
+
+.correctInput {
+   background: #5bc987;
+    color: aliceblue;
+}
+
+
+
+@media screen and (max-width: 1280px) {
+    form button {
+        width: 30%;
+        height: 12%;
+    }
+    .success .button {
+        width: 40%;
+    }
+}
+
+@keyframes hintAppear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

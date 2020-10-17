@@ -1,39 +1,92 @@
-const page = document.querySelector('.page');
+const page = document.querySelector(".page");
 const pageDefault = page.innerHTML;
 const form = document.forms.my;
 const mail = form.elements.email;
 const name = form.elements.username;
 const password = form.elements.password;
-const regExpName = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/
-const regExpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/
-const regExpMail = /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$/
+const regExpName = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
+const regExpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
+const regExpMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-form.addEventListener('submit', event => {
-    if (!regExpName.test(name.value)) {
-        name.value = '';
-        name.placeholder = 'имя 1-20 символов,не должно начинаться с цифры, не содержит пробелов'
+function createHint(inputName) {
+    let hint = document.createElement("div");
+    hint.classList.add("hint");
+    switch (inputName) {
+        case "username":
+            hint.innerHTML =
+                "<p>имя не должно превышать 20 символов и содержать пробелы</p>";
+            hint.classList.add("username-hint");
+            break;
+        case "password":
+            hint.innerHTML =
+                "<p>пароль должен содержать хотя бы один символ в высоком регистре и цифру</p>";
+            hint.classList.add("password-hint");
+            break;
+        case "email":
+            hint.innerHTML =
+                "<p>email должен содержать @ и толко латинские буквы и иметь правильный формат</p>";
+            hint.classList.add("email-hint");
+            break;
     }
-    if (!regExpPassword.test(password.value)) {
-        password.value = '';
-        password.placeholder = 'пароль должен содержать символ в высоком регистре и цифру'
-    }
-    if (!regExpMail.test(mail.value)) {
-        mail.value = '';
-        mail.placeholder = 'введите корректный email'
-    }
+    return hint;
+}
 
-    let userInfo = {
-        name: name.value,
-        email: mail.value,
-        password: password.value
+Array.from(form.elements).forEach((e) => {
+    e.addEventListener("focus", (event) => {
+        event.target.classList.remove("wrongInput");
+        event.target.classList.remove("correctInput");
+        event.target.placeholder = "";
+        document.querySelector(`.${event.target.name}-hint`)
+            ? document.querySelector(`.${event.target.name}-hint`).remove()
+            : false;
+    });
+});
+
+function checkInput(input) {
+    const wrongInput = (input) => {
+        input.value = "";
+        input.placeholder = `incorrect ${input.name}`;
+        input.classList.add("wrongInput");
+        document
+            .querySelector(`.${input.name}`)
+            .append(createHint(`${input.name}`));
+    };
+
+    switch (input.name) {
+        case "username":
+            regExpName.test(input.value)
+                ? input.classList.add("correctInput")
+                : wrongInput(input);
+            break;
+        case "password":
+            regExpPassword.test(input.value)
+                ? input.classList.add("correctInput")
+                : wrongInput(input);
+            break;
+        case "email":
+            regExpMail.test(input.value)
+                ? input.classList.add("correctInput")
+                : wrongInput(input);
+            break;
     }
+}
+
+form.addEventListener("submit", (event) => {
+    Array.from(form.elements).forEach((e) => checkInput(e));
+
     if (mail.value && name.value && password.value) {
-        page.innerHTML = '<div class="success"><div class="button">Success!</div></div>'
-        document.querySelector('.success').addEventListener('click', () => {
+        let userInfo = {
+            name: name.value,
+            email: mail.value,
+            password: password.value,
+        };
+        page.innerHTML =
+            '<div class="success"><div class="button">Success!</div></div>';
+        document.querySelector(".success").addEventListener("click", () => {
             page.innerHTML = pageDefault;
-        })
-        console.log(JSON.stringify(userInfo))
-        return JSON.stringify(userInfo)
+        });
+        console.log(JSON.stringify(userInfo));
+        return JSON.stringify(userInfo);
     }
-    event.preventDefault()
-})
+    event.preventDefault();
+});
