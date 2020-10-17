@@ -178,8 +178,10 @@ button:active {
     bottom: -61%;
     z-index: 2312312321;
     animation: hintAppear 0.7s linear;
-
+    filter: drop-shadow(3px 6px 13px rgba(0,0,0,0.5));
 }
+
+
 
 .hint p {
     text-align: center;
