@@ -3,23 +3,23 @@ const pageDefault = page.innerHTML;
 let form = document.forms.my;
 let mail = form.elements.email;
 let name = form.elements.username;
-let  password = form.elements.password;
+let password = form.elements.password;
 const regExpName = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
 const regExpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
 const regExpMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-focus()
-change()
-submit()
+focus();
+change();
+submit();
 
 function clear() {
     form = document.forms.my;
     mail = form.elements.email;
     name = form.elements.username;
     password = form.elements.password;
-    focus()
-    change()
-    submit()
+    focus();
+    change();
+    submit();
 }
 
 function createHint(inputName) {
@@ -28,7 +28,7 @@ function createHint(inputName) {
     switch (inputName) {
         case "username":
             hint.innerHTML =
-                "<p>латинские символы, не должно превышать 20 символов и содержать пробелы</p>";
+                "<p> не более 20 латинских символов, не должно содержать пробелы и спецсимволы</p>";
 
             hint.id = "username";
             break;
@@ -60,7 +60,6 @@ function focus() {
         });
     });
 }
-
 
 function checkInput(input) {
     const wrongInput = (input) => {
@@ -115,11 +114,10 @@ function submit() {
                 '<div class="success"><div class="button">Success!</div></div>';
             document.querySelector(".success").addEventListener("click", () => {
                 page.innerHTML = pageDefault;
-                clear()
+                clear();
             });
             console.log(JSON.stringify(userInfo));
             return JSON.stringify(userInfo);
         }
     });
 }
-
