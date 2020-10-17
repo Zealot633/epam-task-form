@@ -75,7 +75,11 @@ function checkInput(input) {
     }
 }
 
-
+Array.from(form.elements).forEach(e => {
+    e.addEventListener('change',function (event) {
+       checkInput(event.target)
+    })
+})
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
