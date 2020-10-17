@@ -15,32 +15,36 @@ function createHint(inputName) {
         case "username":
             hint.innerHTML =
                 "<p>имя не должно превышать 20 символов и содержать пробелы</p>";
-            hint.classList.add("username-hint");
+
+            hint.id = 'username'
             break;
         case "password":
             hint.innerHTML =
                 "<p>пароль должен содержать хотя бы один символ в высоком регистре и цифру</p>";
-            hint.classList.add("password-hint");
+
+            hint.id = 'password'
             break;
         case "email":
             hint.innerHTML =
                 "<p>email должен содержать @ и толко латинские буквы и иметь правильный формат</p>";
-            hint.classList.add("email-hint");
+            hint.id = 'email'
             break;
     }
     return hint;
 }
 
-Array.from(form.elements).forEach((e) => {
-    e.addEventListener("focus", (event) => {
-        event.target.classList.remove("wrongInput");
-        event.target.classList.remove("correctInput");
-        event.target.placeholder = "";
-        document.querySelector(`.${event.target.name}-hint`)
-            ? document.querySelector(`.${event.target.name}-hint`).remove()
-            : false;
-    });
-});
+Array.from(form.elements).forEach(e => {
+    e.addEventListener('focus', () => {
+        if (e.classList.contains('wrongInput')) {
+            e.classList.remove('wrongInput');
+            e.placeholder = '';
+            document.querySelector(`#${e.name}`).remove();
+        } else if (e.classList.contains('correctInput')) {
+            e.classList.remove('correctInput')
+        }
+    })
+})
+
 
 function checkInput(input) {
     const wrongInput = (input) => {
@@ -72,8 +76,10 @@ function checkInput(input) {
 }
 
 form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let hints = document.querySelectorAll('.hint');
+    hints.forEach(e => e.remove())
     Array.from(form.elements).forEach((e) => checkInput(e));
-
     if (mail.value && name.value && password.value) {
         let userInfo = {
             name: name.value,
@@ -88,5 +94,5 @@ form.addEventListener("submit", (event) => {
         console.log(JSON.stringify(userInfo));
         return JSON.stringify(userInfo);
     }
-    event.preventDefault();
+
 });
