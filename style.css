@@ -28,7 +28,7 @@ h3 {
     font-size: 1.25em;
     text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
     color: #aababf;
-    margin-bottom: 10px;
+    margin-bottom: 1%;
 }
 
 
@@ -41,8 +41,6 @@ h3 {
     background: #cae1eb25;
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
-    padding: 10px;
-
 }
 
 form {
@@ -56,9 +54,6 @@ form {
 
 form div {
     width: 100%;
-
-
-
 }
 
 input {
@@ -85,8 +80,7 @@ button {
     height: 10%;
     cursor: pointer;
     box-shadow:inset 0px 1px 0px 0px #7a8eb9;
-    background:linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
-    background-color: #637aad;
+    background: linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
     border-radius:4px;
     border:1px solid #314179;
     display:inline-block;
@@ -102,7 +96,6 @@ button {
 
 button:hover {
     background:linear-gradient(to bottom, #5972a7 5%, #637aad 100%);
-    background-color:#5972a7;
     color: #2cdb7e;
 }
 
@@ -137,7 +130,7 @@ button:active {
     border:1px solid #4b8f29;
     color:#ffffff;
     font-family:Arial;
-    font-size:28px;
+    font-size: 1.75em;
     font-weight:bold;
     padding:9px 14px;
     text-decoration:none;
@@ -146,7 +139,6 @@ button:active {
 
 .success .button:hover {
     background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-    background-color:#72b352;
     color: white;
     border: 2px solid white;
 }
@@ -209,7 +201,9 @@ button:active {
         width: 40%;
     }
 
-
+    .hint p {
+        font-size: 0.9em;
+    }
 }
 
 @keyframes hintAppear {
