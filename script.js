@@ -75,6 +75,8 @@ function checkInput(input) {
     }
 }
 
+
+
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     let hints = document.querySelectorAll('.hint');

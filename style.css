@@ -169,7 +169,7 @@ button:active {
     display: flex;
     justify-content: center;
     width: 90%;
-    height:50px;
+    height:60%;
     color: #fafafa;
     background: rgba(102, 120, 127, 0.8);
     border: 1px solid grey;
@@ -206,6 +206,8 @@ button:active {
     .success .button {
         width: 40%;
     }
+
+
 }
 
 @keyframes hintAppear {
@@ -215,4 +217,5 @@ button:active {
     to {
         opacity: 1;
     }
+
 }
