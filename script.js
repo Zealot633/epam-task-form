@@ -62,6 +62,7 @@ function focus() {
 }
 
 function checkInput(input) {
+
     const wrongInput = (input) => {
         input.value = "";
         input.placeholder = `incorrect ${input.name}`;
