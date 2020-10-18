@@ -28,7 +28,7 @@ function createHint(inputName) {
     switch (inputName) {
         case "username":
             hint.innerHTML =
-                "<p> не более 20 латинских символов, не должно содержать пробелы и спецсимволы</p>";
+                "<p> от 1 до 20 латинских символов, не должно содержать пробелы и спецсимволы</p>";
 
             hint.id = "username";
             break;
