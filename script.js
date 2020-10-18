@@ -111,14 +111,17 @@ function submit() {
                 password: password.value,
             };
             sendRequest("POST", requestUrl, userInfo)
-                .then((data) => console.log(data))
+                .then((data) => {
+                    console.log(data)
+                    page.innerHTML =
+                        '<div class="success"><div class="button">Success!</div></div>';
+                    document.querySelector(".success").addEventListener("click", () => {
+                        page.innerHTML = pageDefault;
+                        clear();
+                    });
+                })
                 .catch((err) => console.log(err));
-            page.innerHTML =
-                '<div class="success"><div class="button">Success!</div></div>';
-            document.querySelector(".success").addEventListener("click", () => {
-                page.innerHTML = pageDefault;
-                clear();
-            });
+
         }
     });
 }
