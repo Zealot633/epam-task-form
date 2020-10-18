@@ -30,7 +30,10 @@ function createHint(inputName) {
         case "username":
             hint.innerHTML =
                 "<p> от 1 до 20 латинских символов, может содержать цифры, без пробелов и спецсимволов</p>";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 138492ab213d2da42c412a9da8951248760db0a0
             hint.id = "username";
             break;
         case "password":
