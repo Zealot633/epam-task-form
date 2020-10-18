@@ -7,6 +7,7 @@ let password = form.elements.password;
 const regExpName = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
 const regExpPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
 const regExpMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+let requestUrl = "https://jsonplaceholder.typicode.com/users";
 
 focus();
 change();
@@ -27,10 +28,8 @@ function createHint(inputName) {
     hint.classList.add("hint");
     switch (inputName) {
         case "username":
-            hint.innerHTML =             
-
+            hint.innerHTML =
                 "<p> от 1 до 20 латинских символов, может содержать цифры, без пробелов и спецсимволов</p>";
-
 
             hint.id = "username";
             break;
@@ -64,7 +63,6 @@ function focus() {
 }
 
 function checkInput(input) {
-
     const wrongInput = (input) => {
         input.value = "";
         input.placeholder = `incorrect ${input.name}`;
@@ -113,14 +111,32 @@ function submit() {
                 email: mail.value,
                 password: password.value,
             };
+            sendRequest("POST", requestUrl, userInfo)
+                .then((data) => console.log(data))
+                .catch((err) => console.log(err));
             page.innerHTML =
                 '<div class="success"><div class="button">Success!</div></div>';
             document.querySelector(".success").addEventListener("click", () => {
                 page.innerHTML = pageDefault;
                 clear();
             });
-            console.log(JSON.stringify(userInfo));
-            return JSON.stringify(userInfo);
         }
+    });
+}
+
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.responseType = "json";
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response);
+            } else {
+                resolve(xhr.response);
+            }
+        };
+        xhr.send(JSON.stringify(body));
     });
 }
